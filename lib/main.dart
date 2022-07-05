@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fitness/uis/home_page.dart';
+import 'package:flutter_fitness/uis/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
