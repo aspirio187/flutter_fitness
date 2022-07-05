@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fitness/uis/settings_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,6 +12,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _homeScreenController = PageController();
   int _selectedIndex = 0;
 
+  static const List<Widget> _pages = <Widget>[
+    SettingsPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: PageView(
         controller: _homeScreenController,
-        children: <Widget>[],
+        children: _pages,
         onPageChanged: (index) => _onPageChanged,
       ),
       floatingActionButton: FloatingActionButton(
@@ -61,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icons.settings_outlined,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () => _jumpToSettings(),
               focusColor: Colors.blue,
             )
           ],
@@ -78,5 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     _homeScreenController.jumpToPage(_selectedIndex);
+  }
+
+  _jumpToSettings() {
+    _onPageChanged(3);
   }
 }
