@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fitness/uis/settings_page.dart';
+import 'package:flutter_fitness/uis/user_information_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,6 +14,13 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
+    Center(
+      child: Text('Home page'),
+    ),
+    Center(
+      child: Text('Favorite foods'),
+    ),
+    UserInformationPage(),
     SettingsPage(),
   ];
 
@@ -45,28 +53,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 Icons.home_outlined,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () => _onPageChanged(0),
             ),
             IconButton(
               icon: const Icon(
                 Icons.question_mark,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () => _onPageChanged(1),
             ),
             IconButton(
               icon: const Icon(
                 Icons.question_mark,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () => _onPageChanged(2),
             ),
             IconButton(
               icon: const Icon(
                 Icons.settings_outlined,
                 color: Colors.white,
               ),
-              onPressed: () => _jumpToSettings(),
+              onPressed: () => _onPageChanged(3),
               focusColor: Colors.blue,
             )
           ],
@@ -83,9 +91,5 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     _homeScreenController.jumpToPage(_selectedIndex);
-  }
-
-  _jumpToSettings() {
-    _onPageChanged(3);
   }
 }
