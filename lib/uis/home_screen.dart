@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fitness/uis/history_page.dart';
 import 'package:flutter_fitness/uis/settings_page.dart';
 import 'package:flutter_fitness/uis/user_information_page.dart';
 
@@ -17,9 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Center(
       child: Text('Home page'),
     ),
-    Center(
-      child: Text('Favorite foods'),
-    ),
+    HistoryPage(),
     UserInformationPage(),
     SettingsPage(),
   ];
