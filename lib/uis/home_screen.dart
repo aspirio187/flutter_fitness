@@ -8,11 +8,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final PageController _homeScreenController = PageController();
+  int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My fitness pal'),
+      ),
+      body: PageView(
+        controller: _homeScreenController,
+        children: <Widget>[],
+        onPageChanged: (index) => _onPageChanged,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _navigateCamera,
@@ -63,4 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _navigateCamera() {}
+
+  _onPageChanged(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    _homeScreenController.jumpToPage(_selectedIndex);
+  }
 }
