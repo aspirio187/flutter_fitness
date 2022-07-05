@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_fitness/models/user_model.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -237,6 +238,12 @@ class _UserInformationPageState extends State<UserInformationPage> {
   }
 
   void _saveUser() {
+    UserModel user = UserModel(
+        firstName: firstName,
+        lastName: lastName,
+        weight: weight,
+        height: height,
+        birthDate: birthDate);
     // TODO : Save User information in the database
   }
 }
