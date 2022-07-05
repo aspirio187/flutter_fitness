@@ -44,6 +44,13 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               icon: const Icon(
+                Icons.question_mark,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(
                 Icons.settings_outlined,
                 color: Colors.white,
               ),
