@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_fitness/uis/product_detail_screen.dart';
 
 class BarcodeScanScreen extends StatefulWidget {
   const BarcodeScanScreen({Key? key}) : super(key: key);
@@ -98,5 +99,12 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
     });
   }
 
-  _navigateToProductDetailScreen(String barcode) {}
+  _navigateToProductDetailScreen(String barcode) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProductDetailScreen(barcode: barcode),
+      ),
+    );
+  }
 }

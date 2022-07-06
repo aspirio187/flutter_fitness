@@ -1,12 +1,7 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_fitness/models/product_model.dart';
 import 'package:flutter_fitness/sql_helper.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
-
 import 'dart:async';
-
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 class ProductService {

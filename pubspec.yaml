@@ -39,6 +39,7 @@ dependencies:
   openfoodfacts: ^1.17.0
   path_provider: ^2.0.11
   sqflite: ^2.0.3
+  path:
 
 dev_dependencies:
   flutter_test:
