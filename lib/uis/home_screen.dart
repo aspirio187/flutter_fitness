@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fitness/uis/barcode_scan_screen.dart';
 import 'package:flutter_fitness/uis/history_page.dart';
 import 'package:flutter_fitness/uis/settings_page.dart';
 import 'package:flutter_fitness/uis/user_information_page.dart';
@@ -35,7 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
         onPageChanged: (index) => _onPageChanged,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _navigateCamera,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const BarcodeScanScreen(),
+            ),
+          );
+        },
         child: const Icon(Icons.camera_alt_outlined),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -82,7 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _navigateCamera() {}
+  void _navigateCamera() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const BarcodeScanScreen(),
+        ));
+  }
 
   _onPageChanged(int index) {
     setState(() {

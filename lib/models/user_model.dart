@@ -1,5 +1,3 @@
-import 'package:flutter/rendering.dart';
-
 class UserModel {
   const UserModel(
       {required this.firstName,
