@@ -1,12 +1,10 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as p;
 
 class SqlHelper {
   static Future<void> createTables(sql.Database database) async {
-    await database.execute('''
+    String createProductsTableQuery = '''
       CREATE TABLE products(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         barcode TEXT NOT NULL,
@@ -29,7 +27,9 @@ class SqlHelper {
         vitaminK REAL NOT NULL,
         vitaminPP REAL NOT NULL,
       );
-      ''');
+      ''';
+
+    await database.execute(createProductsTableQuery);
   }
 
   static Future<sql.Database> db() async {
