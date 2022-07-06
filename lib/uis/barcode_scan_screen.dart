@@ -9,8 +9,15 @@ class BarcodeScanScreen extends StatefulWidget {
 }
 
 class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
-  TextEditingController _barcodeController = TextEditingController();
-  String _barcodeResult = '';
+  final TextEditingController _barcodeController = TextEditingController();
+  String _validationMessage = '';
+  late bool _isSearchDisabled;
+
+  @override
+  void initState() {
+    _isSearchDisabled = true;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +42,50 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
             controller: _barcodeController,
             decoration: const InputDecoration(labelText: 'Codebar'),
             keyboardType: TextInputType.number,
+            onSubmitted: (text) {
+              if (text.isEmpty) {
+                setState(() {
+                  _validationMessage = 'Veuillez encoder un codebar';
+                });
+              } else {
+                int? barcode = int.tryParse(text);
+
+                if (barcode == null) {
+                  setState(() {
+                    _validationMessage =
+                        'Veuillez encoder le code bar comme un nombre entier '
+                        'strictement positif!';
+                  });
+                } else {
+                  if (barcode < 0) {
+                    setState(() {
+                      _validationMessage =
+                          'Le codebar ne peut pas être un nombre négatif!';
+                    });
+                  } else {
+                    setState(() {
+                      _validationMessage = '';
+                      _isSearchDisabled = false;
+                    });
+                  }
+                }
+              }
+            },
+          ),
+          Text(
+            _validationMessage,
+            style: const TextStyle(
+              color: Colors.red,
+            ),
           ),
           const Divider(),
           ElevatedButton(
             child: const Text('Recherche'),
-            onPressed: () => _navigateToProductDetailScreen,
+            onPressed: () {
+              if (_isSearchDisabled == false) {
+                _navigateToProductDetailScreen(_barcodeController.text);
+              }
+            },
           ),
         ],
       ),
@@ -52,5 +98,5 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
     });
   }
 
-  _navigateToProductDetailScreen() {}
+  _navigateToProductDetailScreen(String barcode) {}
 }
