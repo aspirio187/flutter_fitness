@@ -81,6 +81,11 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
           ),
           const Divider(),
           ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: _isSearchDisabled
+                  ? MaterialStateProperty.all(Colors.blueGrey)
+                  : MaterialStateProperty.all(Colors.blue),
+            ),
             child: const Text('Recherche'),
             onPressed: () {
               if (_isSearchDisabled == false) {
