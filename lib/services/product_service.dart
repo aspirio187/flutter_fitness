@@ -7,8 +7,25 @@ import 'package:sqflite/sqflite.dart' as sql;
 class ProductService {
   ProductService();
 
-  Future<ProductModel?> getProductFromSDK(String barcode) async {
-    var configuration = ProductQueryConfiguration(barcode);
+  Future<ProductModel?> getProductFromBarcode(String barcode) async {
+    final db = await SqlHelper.db();
+
+    final List<Map<String, Object?>> productsFromDb =
+        await db.query('products');
+    ProductModel? product;
+
+    for (var element in productsFromDb) {
+      if ((element['barcode']! as String) == barcode) {
+        product = ProductModel.fromMap(element);
+        break;
+      }
+    }
+
+    if (product != null) {
+      return product;
+    }
+
+    final configuration = ProductQueryConfiguration(barcode);
 
     ProductResult result = await OpenFoodAPIClient.getProduct(configuration);
 
@@ -20,7 +37,13 @@ class ProductService {
       return null;
     }
 
-    ProductModel product = ProductModel.fromSDK(result.product!);
+    product = ProductModel.fromSDK(result.product!);
+
+    int id = await createProduct(product);
+
+    if (id < 0) {
+      // TODO: Log error
+    }
 
     return product;
   }

@@ -17,6 +17,7 @@ class _BarcodeScanScreenState extends State<BarcodeScanScreen> {
   @override
   void initState() {
     _isSearchDisabled = true;
+    _barcodeController.value = const TextEditingValue(text: '0737628064502');
     super.initState();
   }
 

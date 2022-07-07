@@ -33,7 +33,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: FutureBuilder<ProductModel?>(
-          future: _productService.getProductFromSDK(widget.barcode),
+          future: _productService.getProductFromBarcode(widget.barcode),
           builder:
               (BuildContext context, AsyncSnapshot<ProductModel?> snapshot) {
             if (snapshot.hasData) {
@@ -251,11 +251,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   Future<ProductModel?> _getProduct(String barcode) async {
     ProductModel? productFromSdk =
-        await _productService.getProductFromSDK(barcode);
-
-    if (productFromSdk != null) {
-      await _productService.createProduct(productFromSdk);
-    }
+        await _productService.getProductFromBarcode(barcode);
 
     return productFromSdk;
   }

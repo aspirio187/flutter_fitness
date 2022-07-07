@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:openfoodfacts/model/Nutriments.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 
@@ -146,5 +148,48 @@ class ProductModel {
           vitaminK: vitaminK,
           vitaminPP: vitaminPP);
     }
+  }
+
+  factory ProductModel.fromMap(Map<String, Object?> result) {
+    final String barcode = result['barcode']! as String;
+    final String name = result['name']! as String;
+    final String imgSmallUrl = result['imgSmallUrl']! as String;
+    final String imgUrl = result['imgUrl']! as String;
+    final double carboHydrates = result['carboHydrates']! as double;
+    final double fat = result['fat']! as double;
+    final double protein = result['protein']! as double;
+    final double energyKj = result['energyKj']! as double;
+    final double energyKcal = result['energyKcal']! as double;
+    final double vitaminA = result['vitaminA']! as double;
+    final double vitaminB1 = result['vitaminB1']! as double;
+    final double vitaminB2 = result['vitaminB2']! as double;
+    final double vitaminB6 = result['vitaminB6']! as double;
+    final double vitaminB9 = result['vitaminB9']! as double;
+    final double vitaminC = result['vitaminC']! as double;
+    final double vitaminD = result['vitaminD']! as double;
+    final double vitaminE = result['vitaminE']! as double;
+    final double vitaminK = result['vitaminK']! as double;
+    final double vitaminPP = result['vitaminPP']! as double;
+
+    return ProductModel(
+        barcode: barcode,
+        name: name,
+        imgSmallUrl: imgSmallUrl,
+        imgUrl: imgUrl,
+        carboHydrates: carboHydrates,
+        protein: protein,
+        fat: fat,
+        energyKj: energyKj,
+        energyKcal: energyKcal,
+        vitaminA: vitaminA,
+        vitaminB1: vitaminB1,
+        vitaminB2: vitaminB2,
+        vitaminB6: vitaminB6,
+        vitaminB9: vitaminB9,
+        vitaminC: vitaminC,
+        vitaminD: vitaminD,
+        vitaminE: vitaminE,
+        vitaminK: vitaminK,
+        vitaminPP: vitaminPP);
   }
 }
