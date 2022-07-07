@@ -249,6 +249,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 
+  Future<ProductModel?> _getProduct(String barcode) async {
+    ProductModel? productFromSdk =
+        await _productService.getProductFromSDK(barcode);
+
+    if (productFromSdk != null) {
+      await _productService.createProduct(productFromSdk);
+    }
+
+    return productFromSdk;
+  }
+
   void _saveConsommation() {
     double? quantity = double.tryParse(_consommationController.text);
 
