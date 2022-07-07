@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_fitness/models/consommation_model.dart';
 import 'package:flutter_fitness/models/product_model.dart';
@@ -247,13 +245,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
       ),
     );
-  }
-
-  Future<ProductModel?> _getProduct(String barcode) async {
-    ProductModel? productFromSdk =
-        await _productService.getProductFromBarcode(barcode);
-
-    return productFromSdk;
   }
 
   void _saveConsommation() {

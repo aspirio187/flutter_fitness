@@ -1,6 +1,5 @@
 import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_fitness/services/consommation_service.dart';
 import 'package:flutter_fitness/services/product_service.dart';
 
