@@ -30,6 +30,16 @@ class SqlHelper {
       ''';
 
     await database.execute(createProductsTableQuery);
+
+    String createConsommationsTableQuery = '''
+    CREATE TABLE consommations(
+      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      quantity REAL NOT NULL,
+      barcode REAL NOT NULL
+    );
+    ''';
+
+    await database.execute(createConsommationsTableQuery);
   }
 
   static Future<sql.Database> db() async {
