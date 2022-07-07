@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_fitness/models/consommation_model.dart';
 import 'package:flutter_fitness/models/product_model.dart';
+import 'package:flutter_fitness/services/consommation_service.dart';
 import 'package:flutter_fitness/services/product_service.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -15,6 +17,7 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final ConsommationService _consommationService = ConsommationService();
   final TextEditingController _consommationController = TextEditingController();
   final ProductService _productService = ProductService();
 
@@ -244,5 +247,39 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
       ),
     );
+  }
+
+  void _saveConsommation() {
+    double? quantity = double.tryParse(_consommationController.text);
+
+    if (quantity == null) {
+      setState(() {
+        _errorMessage =
+            'La quantité consommées ne peut pas être convertie en nombre réel!';
+      });
+
+      return;
+    }
+
+    ConsommationModel consommation = ConsommationModel(
+      id: 0,
+      quantity: quantity,
+      productBarcode: widget.barcode,
+    );
+
+    int id = 0;
+
+    _consommationService
+        .saveConsommation(consommation)
+        .then((value) => id = value)
+        .whenComplete(() {
+      if (id == 0) {
+        setState(() {
+          _errorMessage = 'La consommation n\'a pas pu être enregistrée';
+        });
+      } else {
+        Navigator.pop(context);
+      }
+    });
   }
 }
