@@ -48,6 +48,16 @@ class ProductService {
     return product;
   }
 
+  Stream<List<ProductModel>> getProducts() async* {
+    final db = await SqlHelper.db();
+    List<ProductModel> tmp = [];
+
+    for (final result in await db.query('products')) {
+      tmp.add(ProductModel.fromMap(result));
+    }
+    yield tmp;
+  }
+
   Future<int> createProduct(ProductModel product) async {
     final db = await SqlHelper.db();
 

@@ -1,4 +1,9 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_fitness/models/product_model.dart';
+import 'package:flutter_fitness/services/product_service.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -10,27 +15,61 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+  final ProductService _productService = ProductService();
+  final List<ProductModel> _products = [];
+  Stream<ProductModel>? _productStream;
+
+  @override
+  void initState() {
+    setState(() {
+      _productStream = (() {
+        late final StreamController<ProductModel> controller;
+
+        controller = StreamController<ProductModel>(
+          onListen: () => _productService.getProducts(),
+        );
+
+        return controller.stream;
+      })();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Row(
-          children: [
-            Image.network(
-              "https://images.openfoodfacts.org/images/products/073/762/806/4502/front_en.6.200.jpg",
-              height: 50,
-              width: 50,
+    return StreamBuilder<List<ProductModel>>(
+      stream: _productService.getProducts(),
+      builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasData) {
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Text('title'),
-                Text('description'),
-              ],
-            )
-          ],
-        ),
-      ],
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final ProductModel product = snapshot.data![index];
+
+              return Container(
+                alignment: Alignment.center,
+                child: Image.network(
+                  product.imgSmallUrl,
+                  fit: BoxFit.fitHeight,
+                ),
+              );
+            },
+          );
+        } else {
+          return const Center(
+            child: Text('Aucune données'),
+          );
+        }
+      },
     );
   }
 }
