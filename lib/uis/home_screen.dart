@@ -90,14 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _navigateCamera() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const BarcodeScanScreen(),
-        ));
-  }
-
   _onPageChanged(int index) {
     setState(() {
       _selectedIndex = index;

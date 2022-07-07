@@ -13,4 +13,21 @@ class ConsommationService {
 
     return await db.insert('consommations', data);
   }
+
+  Future<List<ConsommationModel>> getConsommationStartingFrom(
+      DateTime start) async {
+    final db = await SqlHelper.db();
+
+    final results = await db.query('consommations');
+
+    final List<ConsommationModel> consommations = [];
+
+    for (final result in results) {
+      consommations.add(ConsommationModel.fromMap(result));
+    }
+
+    return consommations
+        .where((element) => element.consummedAt.isBefore(start))
+        .toList();
+  }
 }

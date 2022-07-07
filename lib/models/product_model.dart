@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:openfoodfacts/model/Nutriments.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 
