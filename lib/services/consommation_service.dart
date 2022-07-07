@@ -6,9 +6,9 @@ class ConsommationService {
     final db = await SqlHelper.db();
 
     final data = {
-      'id': consommationModel.id,
       'quantity': consommationModel.quantity,
-      'barcode': consommationModel.productBarcode
+      'barcode': consommationModel.productBarcode,
+      'consummed_at': consommationModel.consummedAt
     };
 
     return await db.insert('consommations', data);

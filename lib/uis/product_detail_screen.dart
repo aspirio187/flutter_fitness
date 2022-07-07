@@ -227,7 +227,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ? MaterialStateProperty.all(Colors.blue)
                           : MaterialStateProperty.all(Colors.blueGrey),
                     ),
-                    onPressed: () {},
+                    onPressed: () => _saveConsommation(),
                     child: const Text('Enregistrer consommation'),
                   ),
                 ],
@@ -265,6 +265,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       id: 0,
       quantity: quantity,
       productBarcode: widget.barcode,
+      consummedAt: DateTime.now(),
     );
 
     int id = 0;

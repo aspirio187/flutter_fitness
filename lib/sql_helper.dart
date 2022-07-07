@@ -25,8 +25,8 @@ class SqlHelper {
         vitaminD REAL NOT NULL,
         vitaminE REAL NOT NULL,
         vitaminK REAL NOT NULL,
-        vitaminPP REAL NOT NULL,
-      );
+        vitaminPP REAL NOT NULL
+      )
       ''';
 
     await database.execute(createProductsTableQuery);
@@ -35,8 +35,9 @@ class SqlHelper {
     CREATE TABLE consommations(
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       quantity REAL NOT NULL,
-      barcode REAL NOT NULL
-    );
+      barcode REAL NOT NULL,
+      consummed_at DATETIME NOT NULL
+    )
     ''';
 
     await database.execute(createConsommationsTableQuery);
