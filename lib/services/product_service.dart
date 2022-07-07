@@ -25,7 +25,8 @@ class ProductService {
       return product;
     }
 
-    final configuration = ProductQueryConfiguration(barcode);
+    final configuration =
+        ProductQueryConfiguration(int.parse(barcode).toString());
 
     ProductResult result = await OpenFoodAPIClient.getProduct(configuration);
 

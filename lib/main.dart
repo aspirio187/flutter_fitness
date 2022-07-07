@@ -12,10 +12,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SqlHelper.db().then((database) {
-      SqlHelper.createTables(database);
-    });
-
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

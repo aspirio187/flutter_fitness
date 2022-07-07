@@ -4,6 +4,8 @@ import 'package:path/path.dart' as p;
 
 class SqlHelper {
   static Future<void> createTables(sql.Database database) async {
+    await dropDatabase(database);
+
     String createProductsTableQuery = '''
       CREATE TABLE IF NOT EXISTS products(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -35,7 +37,7 @@ class SqlHelper {
     CREATE TABLE IF NOT EXISTS consommations(
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       quantity REAL NOT NULL,
-      barcode REAL NOT NULL,
+      barcode TEXT NOT NULL,
       consummed_at TEXT NOT NULL
     )
     ''';
@@ -45,10 +47,16 @@ class SqlHelper {
 
   static Future<void> dropDatabase(sql.Database database) async {
     String dropConsommationsTableQuery = '''
-    DROP TABLE consommations
+    DROP TABLE IF EXISTS consommations
     ''';
 
     await database.execute(dropConsommationsTableQuery);
+
+    String dropProductsTableQuery = '''
+    DROP TABLE IF EXISTS products
+    ''';
+
+    await database.execute(dropProductsTableQuery);
   }
 
   static Future<sql.Database> db() async {
@@ -59,12 +67,13 @@ class SqlHelper {
 
     String dbPath = p.join(docDir.path, 'myfitnesspal.db');
 
-    return sql.openDatabase(
+    final database = await sql.openDatabase(
       dbPath,
       version: 1,
       onCreate: (sql.Database database, int version) async {
         await createTables(database);
       },
     );
+    return database;
   }
 }

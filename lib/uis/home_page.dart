@@ -92,6 +92,7 @@ class _HomePageState extends State<HomePage> {
     return [
       Series<NutrimentConsommation, String>(
           id: 'Nutriments',
+          colorFn: (_, __) => MaterialPalette.blue.shadeDefault,
           domainFn: (NutrimentConsommation nutrimentConsommation, _) =>
               nutrimentConsommation.nutriment,
           measureFn: (NutrimentConsommation nutrimentConsommation, _) =>

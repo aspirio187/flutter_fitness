@@ -27,7 +27,7 @@ class ConsommationService {
     }
 
     return consommations
-        .where((element) => element.consummedAt.isBefore(start))
+        .where((element) => element.consummedAt.isAfter(start))
         .toList();
   }
 }

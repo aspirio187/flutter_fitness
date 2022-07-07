@@ -17,6 +17,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
+    // Center(
+    //   child: Text('Home page'),
+    // ),
     HomePage(),
     HistoryPage(),
     UserInformationPage(),
