@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fitness/sql_helper.dart';
 import 'package:flutter_fitness/uis/home_screen.dart';
 
 void main() {
@@ -11,6 +12,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SqlHelper.db().then((database) {
+      SqlHelper.createTables(database);
+    });
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

@@ -5,7 +5,7 @@ import 'package:path/path.dart' as p;
 class SqlHelper {
   static Future<void> createTables(sql.Database database) async {
     String createProductsTableQuery = '''
-      CREATE TABLE products(
+      CREATE TABLE IF NOT EXISTS products(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         barcode TEXT NOT NULL,
         name TEXT NOT NULL,
@@ -32,15 +32,23 @@ class SqlHelper {
     await database.execute(createProductsTableQuery);
 
     String createConsommationsTableQuery = '''
-    CREATE TABLE consommations(
+    CREATE TABLE IF NOT EXISTS consommations(
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       quantity REAL NOT NULL,
       barcode REAL NOT NULL,
-      consummed_at DATETIME NOT NULL
+      consummed_at TEXT NOT NULL
     )
     ''';
 
     await database.execute(createConsommationsTableQuery);
+  }
+
+  static Future<void> dropDatabase(sql.Database database) async {
+    String dropConsommationsTableQuery = '''
+    DROP TABLE consommations
+    ''';
+
+    await database.execute(dropConsommationsTableQuery);
   }
 
   static Future<sql.Database> db() async {

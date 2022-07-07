@@ -8,7 +8,7 @@ class ConsommationService {
     final data = {
       'quantity': consommationModel.quantity,
       'barcode': consommationModel.productBarcode,
-      'consummed_at': consommationModel.consummedAt
+      'consummed_at': consommationModel.consummedAt.toString()
     };
 
     return await db.insert('consommations', data);
