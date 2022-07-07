@@ -17,24 +17,6 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   final ProductService _productService = ProductService();
-  final List<ProductModel> _products = [];
-  Stream<ProductModel>? _productStream;
-
-  @override
-  void initState() {
-    setState(() {
-      _productStream = (() {
-        late final StreamController<ProductModel> controller;
-
-        controller = StreamController<ProductModel>(
-          onListen: () => _productService.getProducts(),
-        );
-
-        return controller.stream;
-      })();
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,40 +28,42 @@ class _HistoryPageState extends State<HistoryPage> {
         }
 
         if (snapshot.hasData) {
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
-            ),
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final ProductModel product = snapshot.data![index];
+          return Padding(
+            padding: const EdgeInsets.all(10),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 300,
+                mainAxisSpacing: 20,
+              ),
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final ProductModel product = snapshot.data![index];
 
-              return InkWell(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Image.network(
-                    product.imgSmallUrl,
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductDetailScreen(
-                        barcode: snapshot.data![index].barcode,
-                      ),
+                return InkWell(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Image.network(
+                      product.imgSmallUrl,
+                      fit: BoxFit.fitHeight,
                     ),
-                  );
-                },
-              );
-            },
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                          barcode: snapshot.data![index].barcode,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           );
         } else {
           return const Center(
-            child: Text('Aucune données'),
+            child: Text('Aucun produit dans l\'historique'),
           );
         }
       },
