@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_fitness/uis/barcode_scan_screen.dart';
 import 'package:flutter_fitness/uis/history_page.dart';
+import 'package:flutter_fitness/uis/home_page.dart';
 import 'package:flutter_fitness/uis/settings_page.dart';
 import 'package:flutter_fitness/uis/user_information_page.dart';
 
@@ -16,9 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    Center(
-      child: Text('Home page'),
-    ),
+    HomePage(),
     HistoryPage(),
     UserInformationPage(),
     SettingsPage(),
