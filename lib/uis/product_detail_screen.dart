@@ -15,7 +15,11 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final TextEditingController _consommationController = TextEditingController();
   final ProductService _productService = ProductService();
+
+  String _errorMessage = '';
+  bool _canSaveConsommation = false;
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +192,41 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ],
                       ),
                     ],
-                  )
+                  ),
+                  TextField(
+                    controller: _consommationController,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      signed: false,
+                    ),
+                    decoration: const InputDecoration(
+                      labelText: 'Consommation en grammes',
+                    ),
+                    onChanged: (text) {
+                      double? quantity = double.tryParse(text);
+
+                      if (quantity == null) {
+                        setState(() {
+                          _errorMessage =
+                              'Veuillez encoder une quantité réelle!';
+                        });
+                      } else {
+                        setState(() {
+                          _errorMessage = '';
+                          _canSaveConsommation = true;
+                        });
+                      }
+                    },
+                  ),
+                  Text(_errorMessage),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: _canSaveConsommation
+                          ? MaterialStateProperty.all(Colors.blue)
+                          : MaterialStateProperty.all(Colors.blueGrey),
+                    ),
+                    onPressed: () {},
+                    child: const Text('Enregistrer consommation'),
+                  ),
                 ],
               );
             } else if (snapshot.hasError) {
