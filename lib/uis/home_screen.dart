@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.question_mark,
+                Icons.history_outlined,
                 color: Colors.white,
               ),
               onPressed: () => _onPageChanged(1),
