@@ -144,7 +144,7 @@ class VitaminChartScreen extends StatelessWidget {
             nutrimentsConsommation.consummed,
         data: data,
         labelAccessorFn: (nutrimentConsommation, _) =>
-            '${nutrimentConsommation.nutriment} : ${nutrimentConsommation.consummed}',
+            '${nutrimentConsommation.nutriment.split(' ').last} : ${nutrimentConsommation.consummed}',
       )
     ];
   }
