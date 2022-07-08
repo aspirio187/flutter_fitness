@@ -22,7 +22,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return _generateNutrimentsChart();
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(15),
+      child: _generateNutrimentsChart(),
+    );
   }
 
   FutureBuilder<List<Series<NutrimentConsommation, String>>>
